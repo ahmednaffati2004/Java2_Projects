@@ -1,0 +1,58 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package omar10;
+
+import java.awt.Container;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+/**
+ *
+ * @author HP
+ */
+public class OMAR10 {
+
+    /**
+     * @param args the command line arguments
+     */
+  
+        // TODO code application logic here
+               private static Container cnt;
+    private static ResultSet rs;
+    private static Statement stmt;
+    public static void main(String[] args) {
+        
+        try
+        {
+        String UserName = "omaralkaseh";
+        String PassWord = "123";
+        String host = "jdbc:derby://localhost:1527/omar10";
+        Connection con = DriverManager.getConnection( host, UserName, PassWord );
+         stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+         String SQL = "SELECT * FROM OMARALKASEH.OMAR";
+          rs = stmt.executeQuery( SQL );
+          int IDColumn;
+          String FirstName, LastName, Job;
+          while(rs.next())
+          {
+              IDColumn = rs.getInt("ID");
+              FirstName  = rs.getString("FIRSTNAME");
+              LastName = rs.getString("LASTNAME");
+              Job = rs.getString("JOB");
+              System.out.println("ID" + "   First Name" + "     Last Name" + "    Job\n" + IDColumn + "\t" + FirstName + "\t" + LastName + "\t" + Job);
+          }
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
+    }
+    
+
